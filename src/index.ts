@@ -43,7 +43,7 @@ export class Multiprovider {
   }
 
   public getLayout(children?: Children): ReactNode {
-    return this.#providers.reduce(
+    return this.#providers.reduceRight(
       (latestChild: ReactNode, { component, props }: ProviderWithProps) =>
         createElement(component, props, latestChild),
       children
@@ -61,5 +61,9 @@ export class Multiprovider {
   ): Multiprovider;
   public static append(component: any, props?: any): Multiprovider {
     return new Multiprovider().append(component, props);
+  }
+
+  public static getLayout(children?: Children): ReactNode {
+    return new Multiprovider().getLayout(children);
   }
 }

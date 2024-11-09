@@ -42,3 +42,9 @@ export default function Layout({ children }: PropsWithChildren): ReactElement {
     .getLayout(children);
 }
 ```
+
+---
+
+- 100% test-coverage
+- Type-safe
+- Great match for [react/jsx-max-depth](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-max-depth.md) ESLint rule
