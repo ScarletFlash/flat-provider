@@ -1,0 +1,62 @@
+name: Build & Push
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+  release:
+    types: [published]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.sha }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    name: Build and publish
+    steps:
+      - name: "Fetch all required Git history"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: package.json
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build library
+        run: pnpm run build
+
+      - name: Publish package
+        run: |
+          cd dist
+
+          CURRENT_VERSION=$(grep --only-matching --perl-regexp '"version":\s*"\K[^"]+' package.json)
+          TARGET_VERSION="$CURRENT_VERSION-sha.${{github.sha}}"
+
+          if pnpm view multiprovider@"${TARGET_VERSION}" > /dev/null 2>&1; then
+            echo "Version already exists. Skipping publish."
+          else
+            pnpm version ${TARGET_VERSION}
+            pnpm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
+            pnpm publish --access public --no-git-checks
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
