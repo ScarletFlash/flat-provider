@@ -7,7 +7,7 @@ import {
   PropsWithChildren,
   useContext,
 } from "react";
-import { Multiprovider } from "src";
+import { Multiprovider } from "./index";
 
 const testId: string = "test-wrapper";
 

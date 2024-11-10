@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "allowJs": false,
+    "checkJs": false,
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "Node",
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "resolveJsonModule": true
+  },
+  "include": ["src"]
+}

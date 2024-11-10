@@ -1,10 +1,10 @@
 import { createDefaultPreset, JestConfigWithTsJest } from "ts-jest";
-import { compilerOptions } from "./tsconfig.json";
 
 module.exports = {
-  ...createDefaultPreset(),
+  ...createDefaultPreset({
+    tsconfig: "<rootDir>/tsconfig.test.json",
+  }),
   roots: ["<rootDir>"],
-  modulePaths: [compilerOptions.baseUrl],
   testEnvironment: "jsdom",
   collectCoverage: true,
   coverageThreshold: {
