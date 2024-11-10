@@ -1,4 +1,4 @@
-# Multiprovider
+# Flat Provider
 
 A simple and type-safe multiprovider implementation for React applications.
 
@@ -27,12 +27,12 @@ export default function Layout({ children }: PropsWithChildren): ReactElement {
 #### Into this:
 
 ```tsx
-import { Multiprovider } from "multiprovider";
+import { FlatProvider } from "flat-provider";
 
 export default function Layout({ children }: PropsWithChildren): ReactElement {
   // ...
 
-  return Multiprovider
+  return FlatProvider
     .append(UserTrackingProvider, { apiKey: process.env.TRACKING_API_KEY })
     .append(AuthProvider, { session })
     .append(UiKitProvider)

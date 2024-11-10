@@ -7,7 +7,7 @@ import {
   PropsWithChildren,
   useContext,
 } from "react";
-import { Multiprovider } from "./index";
+import { FlatProvider } from "./index";
 
 const testId: string = "test-wrapper";
 
@@ -18,7 +18,7 @@ it("should return children as is if no providers are set", () => {
 
   render(
     <section data-testid={testId}>
-      {Multiprovider.getLayout(<>{expectedInnerHtml}</>)}
+      {FlatProvider.getLayout(<>{expectedInnerHtml}</>)}
     </section>
   );
 
@@ -64,9 +64,9 @@ it("should render React context providers in the correct order", () => {
     <section data-testid={testId}>
       {providers
         .reduce(
-          (multiproviderRef: Multiprovider, currentProvider: FC) =>
-            multiproviderRef.append(currentProvider),
-          new Multiprovider()
+          (flatProvider: FlatProvider, currentProvider: FC) =>
+            flatProvider.append(currentProvider),
+          new FlatProvider()
         )
         .getLayout()}
     </section>
@@ -103,7 +103,7 @@ it("should correctly handle props", () => {
 
   render(
     <section data-testid={testId}>
-      {Multiprovider.append(ComponentWithProps, {
+      {FlatProvider.append(ComponentWithProps, {
         payload: { timestamp },
       })
         .append(ComponentWithoutProps)

@@ -1,13 +1,13 @@
 {
-  "name": "multiprovider",
+  "name": "flat-provider",
   "version": "0.1.0",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ScarletFlash/multiprovider.git"
+    "url": "git+https://github.com/ScarletFlash/flat-provider.git"
   },
   "bugs": {
-    "url": "https://github.com/ScarletFlash/multiprovider/issues"
+    "url": "https://github.com/ScarletFlash/flat-provider/issues"
   },
   "author": {
     "name": "Fedor Usakov",

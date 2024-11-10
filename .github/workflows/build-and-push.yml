@@ -51,7 +51,7 @@ jobs:
           CURRENT_VERSION=$(grep --only-matching --perl-regexp '"version":\s*"\K[^"]+' package.json)
           TARGET_VERSION="$CURRENT_VERSION-sha.${{github.sha}}"
 
-          if pnpm view multiprovider@"${TARGET_VERSION}" > /dev/null 2>&1; then
+          if pnpm view flat-provider@"${TARGET_VERSION}" > /dev/null 2>&1; then
             echo "Version already exists. Skipping publish."
           else
             pnpm version ${TARGET_VERSION}

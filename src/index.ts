@@ -23,7 +23,7 @@ interface ProviderWithProps<
 
 type Children = Pick<PropsWithChildren, "children">["children"];
 
-export class Multiprovider {
+export class FlatProvider {
   readonly #providers: ProviderWithProps[] = [];
 
   public append(component: FC): this;
@@ -50,20 +50,20 @@ export class Multiprovider {
     );
   }
 
-  public static append(component: FC): Multiprovider;
+  public static append(component: FC): FlatProvider;
   public static append<P extends PropsWithChildren>(
     component: FC<P>,
     props: Omit<P, "children">
-  ): Multiprovider;
+  ): FlatProvider;
   public static append<P extends PropsWithChildren, C extends ComponentType<P>>(
     component: C,
     props?: ComponentPropsWithoutChildren<C>
-  ): Multiprovider;
-  public static append(component: any, props?: any): Multiprovider {
-    return new Multiprovider().append(component, props);
+  ): FlatProvider;
+  public static append(component: any, props?: any): FlatProvider {
+    return new FlatProvider().append(component, props);
   }
 
   public static getLayout(children?: Children): ReactNode {
-    return new Multiprovider().getLayout(children);
+    return new FlatProvider().getLayout(children);
   }
 }
