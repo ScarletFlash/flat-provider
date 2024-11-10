@@ -21,7 +21,7 @@
     "formatter:fix": "prettier --cache --cache-location .prettiercache --cache-strategy content --write ."
   },
   "peerDependencies": {
-    "react": "^18.0.0"
+    "react": ">=18.0.0"
   },
   "devDependencies": {
     "@npm/types": "^2.0.0",
