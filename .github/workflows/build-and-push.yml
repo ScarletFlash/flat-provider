@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "main"
+      - 'main'
   release:
     types: [published]
 
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and publish
     steps:
-      - name: "Fetch all required Git history"
+      - name: 'Fetch all required Git history'
         uses: actions/checkout@v4
         with:
           fetch-depth: 2

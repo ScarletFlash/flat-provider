@@ -1,34 +1,34 @@
-import { defineConfig } from "vite";
-import { default as reactPlugin } from "@vitejs/plugin-react";
-import { default as dtsPlugin } from "vite-plugin-dts";
-import { resolve } from "path";
+import { defineConfig } from 'vite';
+import { default as reactPlugin } from '@vitejs/plugin-react';
+import { default as dtsPlugin } from 'vite-plugin-dts';
+import { resolve } from 'path';
 
-const tsconfigPath: string = resolve(__dirname, "tsconfig.lib.json");
+const tsconfigPath: string = resolve(__dirname, 'tsconfig.lib.json');
 
 export default defineConfig({
   plugins: [
     reactPlugin({
-      include: ["src/index.ts"],
+      include: ['src/index.ts']
     }),
     dtsPlugin({
       tsconfigPath,
       beforeWriteFile: (filePath: string, content: string) => ({
-        filePath: filePath.replace("dist/src", "dist"),
-        content,
-      }),
-    }),
+        filePath: filePath.replace('dist/src', 'dist'),
+        content
+      })
+    })
   ],
   build: {
-    outDir: "dist",
+    outDir: 'dist',
     emptyOutDir: true,
     lib: {
-      entry: "src/index.ts",
-      formats: ["es"],
-      fileName: "index",
+      entry: 'src/index.ts',
+      formats: ['es'],
+      fileName: 'index'
     },
     rollupOptions: {
-      external: ["react"],
+      external: ['react']
     },
-    minify: true,
-  },
+    minify: true
+  }
 });

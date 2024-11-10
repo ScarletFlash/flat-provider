@@ -1,0 +1,43 @@
+name: Check
+
+on:
+  push:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.sha }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    name: Check
+    steps:
+      - name: 'Fetch all required Git history'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: package.json
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: pnpm run formatter:check
+
+      - name: Run unit tests
+        run: pnpm run test

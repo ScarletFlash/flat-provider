@@ -16,7 +16,9 @@
   },
   "scripts": {
     "build": "ts-node --project tsconfig.root.json ./build.script.ts",
-    "test": "jest --config ./jest.config.ts"
+    "test": "jest --config ./jest.config.ts",
+    "formatter:check": "prettier --cache --cache-location .prettiercache --cache-strategy content --check .",
+    "formatter:fix": "prettier --cache --cache-location .prettiercache --cache-strategy content --write ."
   },
   "peerDependencies": {
     "react": "^18.0.0"
@@ -38,7 +40,8 @@
     "ts-node": "^10.0.0",
     "typescript": "^5.0.0",
     "vite": "^5.0.0",
-    "vite-plugin-dts": "^4.0.0"
+    "vite-plugin-dts": "^4.0.0",
+    "prettier": "^3.0.0"
   },
   "engines": {
     "pnpm": "9.12.2",
