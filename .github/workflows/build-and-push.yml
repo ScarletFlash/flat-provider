@@ -49,12 +49,17 @@ jobs:
           cd dist
 
           CURRENT_VERSION=$(grep --only-matching --perl-regexp '"version":\s*"\K[^"]+' package.json)
-          TARGET_VERSION="$CURRENT_VERSION-sha.${{github.sha}}"
+
+          if [ "${{github.event_name}}" = "release" ]; then
+            TARGET_VERSION="$CURRENT_VERSION"
+          else
+            TARGET_VERSION="$CURRENT_VERSION-sha.${{github.sha}}"
+          fi
 
           if pnpm view flat-provider@"${TARGET_VERSION}" > /dev/null 2>&1; then
             echo "Version already exists. Skipping publish."
           else
-            pnpm version ${TARGET_VERSION}
+            pnpm version ${TARGET_VERSION} --allow-same-version
             pnpm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
             pnpm publish --access public --no-git-checks
           fi
